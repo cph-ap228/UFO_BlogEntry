@@ -1,4 +1,4 @@
-# UFO_BlogEntry
+﻿# UFO_BlogEntry
 
 ### How do we stop message protocols proliferating? Learn to pick your standards!
 
@@ -42,6 +42,100 @@ Compare with REST and WebSockets,
 Message queues provide an asynchronous communications protocol, which can be useful in processing larger amount of data in a message, or when we require processing of jobs in a more controlled manner. In practice message queue protocols and websockets can be quite similar, they each transmit a message and can trigger events remotely, allowing dynamicity and the possibility of having cross-platform input to some extent. 
 
 
+### Use Cases
 
-Pros and Cons based on use cases.
-Conclusion
+
+For the purpose of this demonstration we are going to look at an example on integrating these protocols into Unity, and evaluate their pros and cons based on acceptance criteria. 
+
+
+
+
+
+#### Case 1.1
+
+The purpose of this application is to send and receive location data (coordinates), name of the sender and an image as byte array. 
+In order to achieve this we will have one phone that acts as a producer and another phone would act as a consumer
+
+On the producer side we capture a photo, enter our name and when we tap the send button, we serialize the information, including the coordinates obtained dependent on the devices location.
+
+In order to transmit this message and display it on another phone we are going to take in consideration the previously mentioned protocols.
+
+The JSON Object we are transferring:
+
+![alt text]( https://  “JSONObject”)
+
+##### REST
+
+As software developers we are quite familiar with the capabilities of the REST API, and the limitations of it, one in particular being dynamicity.
+
+In order to be able to display the required message on our screen we would need to query continuously the API to see if there are any updates, or have a button, which creates a GET() request. However the purpose of the application is to display the information received from the JSON Object as soon as it is sent, therefore this approach does not really pass our acceptance criteria.
+
+
+##### AMQP and Socket.IO
+
+You might be wondering why didn’t we separate AMQP and Socket.io? The reason is because for completing the acceptance criteria for this case, we are using a very similar approach in the two protocols. 
+
+In order to fulfill the acceptance criteria we are passing the JSON Object in the body and retrieving it on the consumer side. 
+Let us demonstrate:
+
+![alt text]( https://  “AMQP WS”)
+
+The interesting bit in these protocols are the listeners which are “Listening”/waiting for a specific action and when the action has been triggered, the function can trigger an event which in our case would be to display the information on screen.
+
+#### Case 1.2
+
+This case is an extension to the previous case to demonstrate where one producer sends out a message to multiple or only specific devices. 
+
+We can achieve this by using both protocols, but by using the Socket.io we need to implement logic in order to transmit message to specific consumers. 
+
+AMQP has built-in “identifiers” to fulfill the criteria, where in our opinion this approach surpasses the Socket.io for this purpose.
+
+How can AMQP identify which queues to use/who to send the message to?
+
+We will explain it in two sections, 1. Using the channels 2. Using CorrelationId
+
+##### 1. Channels/Exchange Types
+
+![alt text]( https://  “Channels”)
+
+
+As seen on the image above, the exchanges have 4 different types.
+
+<details>
+<summary>Exchange Types</summary>
+<br>
+
+..* Direct Exchange
+![alt text]( https://  “Direct”)
+
+The Direct exchange type routes messages with a routing key equal to the routing key declared by the binding queue.
+
+..* Fanout Exchange
+![alt text]( https://  “Fanout”)
+
+The Fanout exchange type routes messages to all bound queues indiscriminately.  If a routing key is provided, it will simply be ignored.
+
+..* Topic Exchange
+![alt text]( https://  “Topic”)
+
+The Topic exchange type routes messages to queues whose routing key matches all, or a portion of a routing key.  With topic exchanges, messages are published with routing keys containing a series of words separated by a dot (e.g. “word1.word2.word3”).
+
+..* Headers Exchange
+![alt text]( https://  “Headers”)
+
+The Headers exchange type routes messages based upon a matching of message headers to the expected headers specified by the binding queue.
+
+</details>
+
+
+
+##### 2. CorrelationId
+
+The CorrelationId can be defined when publishing a message to an exchange, by using the IAmqpMessageProperties.
+
+![alt text]( https://  “MessageProperties”)
+
+The CorrelationId can be very useful when we would like to keep a reference of the device that we just received a message from, so that we can communicate back to that exact device if necessary.
+
+
+### Conclusion
