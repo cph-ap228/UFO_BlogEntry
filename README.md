@@ -36,5 +36,12 @@ It all must be drawn and selected based on requirements. There’s no silver lin
 TO DO (…) 
 Section of details on the protocol
 Compare with REST and WebSockets,
+
+##### AMQP vs WebSocket
+
+Message queues provide an asynchronous communications protocol, which can be useful in processing larger amount of data in a message, or when we require processing of jobs in a more controlled manner. In practice message queue protocols and websockets can be quite similar, they each transmit a message and can trigger events remotely, allowing dynamicity and the possibility of having cross-platform input to some extent. 
+
+
+
 Pros and Cons based on use cases.
 Conclusion
