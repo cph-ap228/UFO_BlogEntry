@@ -70,7 +70,7 @@ In order to transmit this message and display it on another phone we are going t
 
 The JSON Object we are transferring:
 
-![alt text]( https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/JSON.PNG  “JSONObject”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/JSON.PNG)
 
 ##### REST
 
