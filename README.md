@@ -62,4 +62,12 @@ WebSockets are more suitable for cases where a push-based and real-time communic
 
 AMQP can solve these problems and have even more control over how it does, but it takes a different approach than simple socket connections, although it does not fit RESTful services in the same way as them. In short, AMQP needs it's own unique approach when designing with it's middleware broker architecture in mind. But as previously discussed, this can over complicate a solution to a simple problem.
 
+If you want to talk with the world (provide an API for third party usage), HTTP is giving all you need. It is supported, well known and widely used. Also, you “do not have to care if there is a problem in the communications, because it is the duty of the client of your API to execute the request again if something went wrong.
+
+If you want to have simple communication between two sources, then sockets should have your back.
+
+If you want to have internal communication, where you control every single request, I would use AMQP, because it is easy to use, supported in most of the languages used nowadays, reliable, scalable and fast.
+
+All three protocols are great, no doubt about that. But only one of them adds reliablity on your communications “out of the box and that is key, also, only one of them is scalable almost out of the box and the fact that communications are not blocking the services allows you to continue using your resources for other processes. Furthermore, why re-inventing the wheel creating our own reliability process “just because”? Why adding extra code that has to be maintained only because “we can”? I have it clear, if it is asynchronous, use AMQP with RabbitMQ.
+
 It all must be drawn and selected based on requirements. There’s no silver lining but many forget that they might be using the wrong procedure for their specific task and application, essentially wasting resources by trying to achieve the same thing which could be done with a different approach and protocol. 
