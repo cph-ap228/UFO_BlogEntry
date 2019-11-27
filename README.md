@@ -59,10 +59,6 @@ The same case can be made about AMQP. It's scaling is harder to do from a dev op
 
 For the purpose of this demonstration we are going to look at an example on integrating these protocols into Unity, and evaluate their pros and cons based on acceptance criteria. 
 
-
-
-
-
 #### Case 1.1
 
 The purpose of this application is to send and receive location data (coordinates), name of the sender and an image as byte array. 
@@ -74,7 +70,7 @@ In order to transmit this message and display it on another phone we are going t
 
 The JSON Object we are transferring:
 
-![alt text]( https://  “JSONObject”)
+![alt text]( https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/JSON.PNG  “JSONObject”)
 
 ##### REST
 
