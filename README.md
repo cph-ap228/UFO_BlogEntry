@@ -86,7 +86,7 @@ You might be wondering why didn’t we separate AMQP and Socket.io? The reason i
 In order to fulfill the acceptance criteria we are passing the JSON Object in the body and retrieving it on the consumer side. 
 Let us demonstrate:
 
-![alt text]( https://  “AMQP WS”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/AMQPvsWS.PNG)
 
 The interesting bit in these protocols are the listeners which are “Listening”/waiting for a specific action and when the action has been triggered, the function can trigger an event which in our case would be to display the information on screen.
 
@@ -104,32 +104,32 @@ We will explain it in two sections, 1. Using the channels 2. Using CorrelationId
 
 ##### 1. Channels/Exchange Types
 
-![alt text]( https://  “Channels”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/Channels.PNG)
 
 
-As seen on the image above, the exchanges have 4 different types.
+The image above explains how a message is being transmitted from the Producer/Publisher to our Consumer.
 
 <details>
 <summary>Exchange Types</summary>
 <br>
 
 ..* Direct Exchange
-![alt text]( https://  “Direct”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/DirectExchange.png)
 
 The Direct exchange type routes messages with a routing key equal to the routing key declared by the binding queue.
 
 ..* Fanout Exchange
-![alt text]( https://  “Fanout”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/FanoutExchange.png)
 
 The Fanout exchange type routes messages to all bound queues indiscriminately.  If a routing key is provided, it will simply be ignored.
 
 ..* Topic Exchange
-![alt text]( https://  “Topic”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/TopicExchange.png)
 
 The Topic exchange type routes messages to queues whose routing key matches all, or a portion of a routing key.  With topic exchanges, messages are published with routing keys containing a series of words separated by a dot (e.g. “word1.word2.word3”).
 
 ..* Headers Exchange
-![alt text]( https://  “Headers”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/HeadersExchange.png)
 
 The Headers exchange type routes messages based upon a matching of message headers to the expected headers specified by the binding queue.
 
@@ -141,7 +141,7 @@ The Headers exchange type routes messages based upon a matching of message heade
 
 The CorrelationId can be defined when publishing a message to an exchange, by using the IAmqpMessageProperties.
 
-![alt text]( https://  “MessageProperties”)
+![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/IAmqpMessageProperties.PNG)
 
 The CorrelationId can be very useful when we would like to keep a reference of the device that we just received a message from, so that we can communicate back to that exact device if necessary.
 
