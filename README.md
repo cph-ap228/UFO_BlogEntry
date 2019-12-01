@@ -3,8 +3,11 @@
 ### Authors
 
 Arkadiusz Paryz - cph-ap228@cphbusiness.dk 
+
 István Farkas - cph-if36@cphubisness.dk 
+
 Sean Altoft - cph-sa230@cphbusiness.dk 
+
 Vlad Mircea Burac - cph-mb402@cphbusiness.dk 
 
 ---
