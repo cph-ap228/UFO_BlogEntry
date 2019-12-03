@@ -176,3 +176,10 @@ If you want to have internal communication, where you control every single reque
 All three protocols are great, no doubt about that. But only one of them adds reliablity on your communications “out of the box and that is key, also, only one of them is scalable almost out of the box and the fact that communications are not blocking the services allows you to continue using your resources for other processes. Furthermore, why re-inventing the wheel creating our own reliability process “just because”? Why adding extra code that has to be maintained only because “we can”? I have it clear, if it is asynchronous, use AMQP with RabbitMQ.
 
 It all must be drawn and selected based on requirements. There’s no silver lining but many forget that they might be using the wrong procedure for their specific task and application, essentially wasting resources by trying to achieve the same thing which could be done with a different approach and protocol.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+#### Resources
+https://www.rabbitmq.com/tutorials/amqp-concepts.html
+https://peterdaugaardrasmussen.com/2019/01/24/what-is-the-difference-between-websockets-and-http/
+https://dev.to/fedejsoren/amqp-vs-http
