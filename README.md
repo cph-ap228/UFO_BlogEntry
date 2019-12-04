@@ -181,5 +181,7 @@ It all must be drawn and selected based on requirements. There’s no silver lin
 
 #### Resources
 https://www.rabbitmq.com/tutorials/amqp-concepts.html
+
 https://peterdaugaardrasmussen.com/2019/01/24/what-is-the-difference-between-websockets-and-http/
+
 https://dev.to/fedejsoren/amqp-vs-http
