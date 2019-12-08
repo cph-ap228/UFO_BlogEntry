@@ -12,6 +12,10 @@ Vlad Mircea Burac - cph-mb402@cphbusiness.dk
 
 ---
 
+### Abstract
+
+In this blog entry we present three protocols that can handle communication between a Unity client and a server. 
+We present two use cases to give an example of usages and benefits of these technologies, however the main focus is on the comparison between WebSockets and Message Queues.
 
 ### How do we stop message protocols proliferating? Learn to pick your standards!
 
