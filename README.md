@@ -77,30 +77,37 @@ The same case can be made about AMQP. It's scaling is harder to do from a dev op
 
 ### Use Cases
 
-For the purpose of this demonstration we are going to look at an example on integrating these protocols into Unity, and evaluate their pros and cons based on acceptance criteria. 
-
-##### Case 1 - REST 
-
-As software developers we are quite familiar with the capabilities of the REST API, and the limitations of it, one in particular being dynamicity.
-
-In order to be able to display the required message on our screen we would need to query continuously the API to see if there are any updates, or have a button, which creates a GET() request. However the purpose of the application is to display the information received from the JSON Object as soon as it is sent, therefore this approach does not really pass our acceptance criteria.
-
-##### Case 1.1 - Using JSON
-
-The purpose of this application is to send and receive location data (coordinates), name of the sender and an image as byte array. 
-In order to achieve this we will have one phone that acts as a producer and another phone would act as a consumer
-
-On the producer side we capture a photo, enter our name and when we tap the send button, we serialize the information, including the coordinates obtained dependent on the devices location.
-
-In order to transmit this message and display it on another phone we are going to take in consideration the previously mentioned protocols.
+For the purpose of this demonstration we are going to look at three examples on integrating these protocols into Unity, and evaluate their pros and cons based on acceptance criteria. 
 
 The JSON Object we are transferring:
 
 ![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/JSON.PNG)
 
+In order to transmit this message and display it on another phone we are going to take in consideration the previously mentioned protocols.
+
+##### Case 1.1 - REST 
+
+The objective of this application is to send and receive location data (coordinates), name of the sender and an image as byte array. 
+In order to achieve this we will have one phone that acts as a producer and another phone would act as a consumer
+
+On the producer side we capture a photo, enter our name and when we tap the send button, we serialize the information, including the coordinates obtained dependent on the devices location.
+
+In order to fulfill the acceptance criteria for this case, we are going to create a POST() request on the producer side, which will send the above mentioned JSON Object to the server.
+
+The consumer then can call a GET() Request, deserialize the received JSON Object and display the name, image as texture and the coordinates on a map. For this purpose REST is excellent, since we do not need to continuously "listen" to an event, if we don't want the information to be updated as soon as it gets added to the server.
+
+However, for our next use case, this approach falls behind, since we would need to query continuously the API to see if there are any updates. However the purpose of the application is to display the information received from the JSON Object as soon as it is sent, therefore this approach does not really pass our acceptance criteria.
+
+If you want to find out more on implementing REST in your unity application, we recommend you to take a look at the Rest Client for Unity mentioned in the references. We have been taking advantage of this library to conduct our investigation.
+
+
 ##### Case 1.2 - AMQP and Socket.IO
 
-You might be wondering why didn’t we separate AMQP and Socket.io? The reason is because for completing the acceptance criteria for this case, we are using a very similar approach in the two protocols. 
+This case aims to investigate the approach of transfering information dynamically through two instances of an application. The base idea is very much alike as the previous case, in the matter of transfering the same JSON Object, however the objective of this case is to display the JSON object as soon as it is available on the server.
+
+As an example, imagine a situation where you are waiting for the pizza that you have ordered to arrive. By using the REST approach you would have to go to your door and take a look if the pizza arrived let's say every 5 seconds. By using the AMQP/Socket approach, you could just lay back and wait for the delivery guy to ring the bell when he arrives.
+
+You might be wondering why didn’t we separate AMQP and Socket.io? The reason is because for completing the acceptance criteria for this case, we are using a very similar approach in the two protocols. Therefore, there is no need to be intimidated by hearing AMQP, since it is not that far apart in the logic from Socket, however it can be more useful in some cases, which we will explore in Case 1.3.
 
 In order to fulfill the acceptance criteria we are passing the JSON Object in the body and retrieving it on the consumer side. 
 Let us demonstrate:
@@ -109,7 +116,9 @@ Let us demonstrate:
 
 The interesting bit in these protocols are the listeners which are “Listening”/waiting for a specific action and when the action has been triggered, the function can trigger an event which in our case would be to display the information on screen.
 
-#### Case 1.3 - AMQP and Socket.IO
+#### Case 1.3 - AMQP
+
+Let us go back to our analogy of the pizza delivery. Take into consideration, that the pizza place you are ordering from might be very famous, and hundreds or even thousands of people order pizza from there. Let us assume that you have ordered a pizza, and been waiting for 2 hours, but your pizza still didn't arrive because 100 other people ordered after you and unfortunately your order ended up as the last one, or it might have been sent to the wrong address. AMQP aims to solve this issue, by keeping track of the order of the "pizza orders" with the use of Queues. Furthermore, it can keep track of your "address".
 
 This case is an extension to the previous case to demonstrate where one producer sends out a message to multiple or only specific devices. 
 
@@ -189,3 +198,5 @@ https://www.rabbitmq.com/tutorials/amqp-concepts.html
 https://peterdaugaardrasmussen.com/2019/01/24/what-is-the-difference-between-websockets-and-http/
 
 https://dev.to/fedejsoren/amqp-vs-http
+
+Rest Client for Unity : https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501 
