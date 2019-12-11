@@ -14,11 +14,15 @@ Vlad Mircea Burac - cph-mb402@cphbusiness.dk
 
 ### Abstract
 
-In this blog entry we present three protocols that can handle communication between a Unity client and a server. 
-We present two use cases to give an example of usages and benefits of these technologies, however the main focus is on the comparison between WebSockets and Message Queues.
+In this blog entry we present three protocols; namely REST, sockets and message queues, that can handle communication between a Unity client and a server. 
+We present three use cases to give an example of usages and benefits, but also identify each one of them and the limitations of these technologies, however the main focus is on the comparison between WebSockets and Message Queues. It is hoped that this study will inform fellow practicioners of these protocols, in differentiating between them and their intended purpose.
 
-### How do we stop message protocols proliferating? Learn to pick your standards!
+### Hypothesis 
 
+It is to no suprise that these three widely used message protocols are widely used and that many are familiar with their existence, however the issue at hand is identifying the different protocols at hand and their limitations for whatever use case their users might need resolving. In a real-world scenario, it can be a must to learn and differentiate & optimize your application, supported by the right choice of protocol for the task. Why shouldn't everyone identify themselves with the possibilities of the most concurrent ones to date? Can our research paper influence others to make the right choice by unfolding the truth and story behind these protocols and their preferred use cases? These research questions are illuminated and brought to question; What limitations brought them to existance, why other message protocol profiliation haven't superseeded them. Our examples, define which exact limitations and needs that led into these protocols being enhanced and integrated into real everyday-applications and tasks, how we have used them and how you should use them.
+
+##### Case study 
+## How do we stop message protocols proliferating? Learn to pick your standards!
 
 “Trying to punch a nail through wood with your left fist, while holding a hammer in your right”. 
 This is especially true in scenarios where connections are bound to be made between clients and a server to create a seamless operation with no downtime. However, what your application may need is the understanding between a need and a preference. A selection of popular messaging protocols have been compared in this paper to see, that many of these processes can be lightened for increased performance and less headaches. If developers started to push their “high-horsed” preferences to the side and focused more on what their application really needs. 
@@ -73,10 +77,15 @@ The same case can be made about AMQP. It's scaling is harder to do from a dev op
 
 ### Use Cases
 
-
 For the purpose of this demonstration we are going to look at an example on integrating these protocols into Unity, and evaluate their pros and cons based on acceptance criteria. 
 
-#### Case 1.1
+##### Case 1 - REST 
+
+As software developers we are quite familiar with the capabilities of the REST API, and the limitations of it, one in particular being dynamicity.
+
+In order to be able to display the required message on our screen we would need to query continuously the API to see if there are any updates, or have a button, which creates a GET() request. However the purpose of the application is to display the information received from the JSON Object as soon as it is sent, therefore this approach does not really pass our acceptance criteria.
+
+##### Case 1.1 - Using JSON
 
 The purpose of this application is to send and receive location data (coordinates), name of the sender and an image as byte array. 
 In order to achieve this we will have one phone that acts as a producer and another phone would act as a consumer
@@ -89,14 +98,7 @@ The JSON Object we are transferring:
 
 ![alt text](https://github.com/cph-ap228/UFO_BlogEntry/blob/master/images/JSON.PNG)
 
-##### REST
-
-As software developers we are quite familiar with the capabilities of the REST API, and the limitations of it, one in particular being dynamicity.
-
-In order to be able to display the required message on our screen we would need to query continuously the API to see if there are any updates, or have a button, which creates a GET() request. However the purpose of the application is to display the information received from the JSON Object as soon as it is sent, therefore this approach does not really pass our acceptance criteria.
-
-
-##### AMQP and Socket.IO
+##### Case 1.2 - AMQP and Socket.IO
 
 You might be wondering why didn’t we separate AMQP and Socket.io? The reason is because for completing the acceptance criteria for this case, we are using a very similar approach in the two protocols. 
 
@@ -107,7 +109,7 @@ Let us demonstrate:
 
 The interesting bit in these protocols are the listeners which are “Listening”/waiting for a specific action and when the action has been triggered, the function can trigger an event which in our case would be to display the information on screen.
 
-#### Case 1.2
+#### Case 1.3 - AMQP and Socket.IO
 
 This case is an extension to the previous case to demonstrate where one producer sends out a message to multiple or only specific devices. 
 
@@ -171,13 +173,13 @@ WebSockets are more suitable for cases where a push-based and real-time communic
 
 AMQP can solve these problems and have even more control over how it does, but it takes a different approach than simple socket connections, although it does not fit RESTful services in the same way as them. In short, AMQP needs it's own unique approach when designing with it's middleware broker architecture in mind. But as previously discussed, this can over complicate a solution to a simple problem.
 
-If you want to talk with the world (provide an API for third party usage), HTTP is giving all you need. It is supported, well known and widely used. Also, you “do not have to care if there is a problem in the communications, because it is the duty of the client of your API to execute the request again if something went wrong.
+If you want to talk with the world (provide an API for third party usage), HTTP is giving all you need. It is supported, well known and widely used. Combined with the: "You do not have to care if there is a problem in the communications, because it is the duty of the client of your API to execute the request again if something went wrong"-attitude.
 
 If you want to have simple communication between two sources, then sockets should have your back.
 
 If you want to have internal communication, where you control every single request, I would use AMQP, because it is easy to use, supported in most of the languages used nowadays, reliable, scalable and fast.
 
-All three protocols are great, no doubt about that. But only one of them adds reliablity on your communications “out of the box and that is key, also, only one of them is scalable almost out of the box and the fact that communications are not blocking the services allows you to continue using your resources for other processes. Furthermore, why re-inventing the wheel creating our own reliability process “just because”? Why adding extra code that has to be maintained only because “we can”? I have it clear, if it is asynchronous, use AMQP with RabbitMQ.
+All three protocols are great, no doubt about that. But only one of them adds reliablity on your communications “out of the box" and that is key, also, only one of them is scalable almost out of the box and the fact that communications are not blocking the services allows you to continue using your resources for other processes. Furthermore, why re-inventing the wheel creating our own reliability process “just because”? Why adding extra code that has to be maintained only because “we can”? We have it clear, if it is asynchronous, use AMQP with RabbitMQ.
 
 It all must be drawn and selected based on requirements. There’s no silver lining but many forget that they might be using the wrong procedure for their specific task and application, essentially wasting resources by trying to achieve the same thing which could be done with a different approach and protocol.
 
