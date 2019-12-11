@@ -167,21 +167,19 @@ The CorrelationId can be very useful when we would like to keep a reference of t
 
 ### Conclusion
 
-In conclusion for these protocols, for the bulk of the scenarios then, where occasional communication is required with the server, like for example, getting the record of an employee, it’s still sensible to use REST service over HTTP.
+In conclusion for these message protocols and our research, the main thing to inherit from this paper is, that all mentioned protocols have withstood the test of time. The keyword is to  "differentiate". 
+To research, choose and adapt is of utmost importance and you will thank yourself for it in the end, just as we did. This means, that the concluding results we have achieved naturally come in many varieties and shapes and they are as follows: For the bulk of the scenarios, where occasional communication is required with the server, for example, getting the record of an employee, it is still sensible to use REST service over HTTP. 
 
-WebSockets are more suitable for cases where a push-based and real-time communication defines the requirement more appropriately, saying you’d like to have a newer client-side application with stock-prices, which requires real-time updates on the server, gives much more leverage to using WebSockets. Additionally, WebSockets works better for scenarios where a message needs to be pushed to multiple clients simultaneously, where RESTful services will find it difficult if not prohibitive. 
+WebSockets are more suitable for cases where push-based and real-time communication defines the requirement more appropriately. Say you would like to have a newer client-side application with stock-prices which requires real-time updates on the server. In this scenario it gives much more leverage to use WebSockets. Additionally, WebSockets works better for scenarios where a message needs to be pushed to multiple clients simultaneously, where RESTful services will find it difficult  and restraining.
 
-AMQP can solve these problems and have even more control over how it does, but it takes a different approach than simple socket connections, although it does not fit RESTful services in the same way as them. In short, AMQP needs it's own unique approach when designing with it's middleware broker architecture in mind. But as previously discussed, this can over complicate a solution to a simple problem.
+AMQP can solve these problems and have even more control over how it is done, but it takes a different approach than simple socket connections, although it does not fit RESTful services in the same way. In short, AMQP needs its own unique approach when designing with its middleware broker architecture in mind. But as previously discussed, this can overcomplicate a solution to a simple problem. If you want to communicate with the world (provide an API for third party usage), HTTP is widely used and very efficient for this purpose. Furthermore, it is both well supported and well known. Combined with the: "You do not have to care if there is a problem in the communications, because it is the duty of the client of your API to execute the request again if something went wrong"-attitude. 
+If you want to have simple communication between two sources, then sockets would be the most definite and sensible choice. 
+If you want to have internal communication, where you control every single request, we would use AMQP as it is easy to use, supported in many languages, reliable, scalable and fast.
 
-If you want to talk with the world (provide an API for third party usage), HTTP is giving all you need. It is supported, well known and widely used. Combined with the: "You do not have to care if there is a problem in the communications, because it is the duty of the client of your API to execute the request again if something went wrong"-attitude.
+All three protocols are great no doubt about that. However, only one of them adds reliability on communications “out of the box" and that is key. Additionally, only one of them is scalable almost out of the box and the fact that communications are not blocking the services allows you to continue to use your resources for other processes. Why “re-invent the wheel” by creating our own reliability process? Why add extra code that must be maintained just because “we can”? It is clear, that if communication  is asynchronous then the most optimal solution is to  use AMQP with RabbitMQ. 
 
-If you want to have simple communication between two sources, then sockets should have your back.
-
-If you want to have internal communication, where you control every single request, I would use AMQP, because it is easy to use, supported in most of the languages used nowadays, reliable, scalable and fast.
-
-All three protocols are great, no doubt about that. But only one of them adds reliablity on your communications “out of the box" and that is key, also, only one of them is scalable almost out of the box and the fact that communications are not blocking the services allows you to continue using your resources for other processes. Furthermore, why re-inventing the wheel creating our own reliability process “just because”? Why adding extra code that has to be maintained only because “we can”? We have it clear, if it is asynchronous, use AMQP with RabbitMQ.
-
-It all must be drawn and selected based on requirements. There’s no silver lining but many forget that they might be using the wrong procedure for their specific task and application, essentially wasting resources by trying to achieve the same thing which could be done with a different approach and protocol.
+We conclude that based on our assessment all message protocols must be drawn and selected based on requirements. 
+There is no silver lining and many forget that they may be using the wrong procedure for their specific task and application, essentially wasting resources by trying to achieve the same thing which could have been done with a different, more efficient approach and protocol.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
